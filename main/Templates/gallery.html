@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- 🌸 Hero Section -->
+<section class="hero-section text-center text-white py-5"
+    style="background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(67, 4, 41, 0.8));" data-aos="fade-down"
+    data-aos-duration="1000">
+
+    <div class="container">
+        <img src="{% static 'images/l2.png' %}" alt="Pinky Beauty Parlour Logo" class="hero-logo mb-3"
+            data-aos="zoom-in" data-aos-delay="200">
+        <h2 class="hero-title" data-aos="fade-up" data-aos-delay="300">Our Gorgeous Gallery</h2>
+        <p class="hero-subtext" data-aos="fade-up" data-aos-delay="500">
+            Discover the beauty, creativity, and elegance that define
+            <span class="pink-text">Pinky Beauty Parlour</span>.
+            Each look tells a story of confidence and grace.
+        </p>
+    </div>
+</section>
+
+<!-- 💄 Gallery Section -->
+<section class="gallery-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-4" data-aos="fade-up">Our Stunning Works</h2>
+        <div class="row g-4">
+            {% for item in gallery %}
+            <div class="col-lg-4 col-md-6 col-sm-12" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|add:1 }}00">
+                <div class="gallery-card">
+                    <div class="img-container">
+                        <img src="{{ item.image.url }}" alt="{{ item.category }}">
+                        <div class="overlay">
+                            <h5>{{ item.category }}</h5>
+                            <p>{{ item.description|truncatewords:15 }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ✨ Custom Styles -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    body {
+        font-family: 'Great Vibes', cursive;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background-attachment: fixed;
+        color: #fff;
+        text-align: center;
+    }
+
+    .hero-logo {
+        width: 120px;
+        height: auto;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+        color: #ce2175;
+        letter-spacing: 1px;
+    }
+
+    .hero-subtext {
+        color: #f8f8f8;
+        max-width: 700px;
+        margin: 0 auto;
+        letter-spacing: 3px;
+        font-size: 1.4rem;
+        line-height: 1.6;
+    }
+
+    .pink-text {
+        color: #c72071;
+        font-weight: bold;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+        background: linear-gradient(135deg, #000000, #330022);
+        color: #fff;
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        color: #d31973;
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+        line-height: 1.6;
+    }
+
+    /* Gallery Cards */
+    .gallery-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .gallery-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(255, 182, 219, 0.3);
+    }
+
+    .img-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .img-container img {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        transition: transform 0.5s ease;
+    }
+
+    .img-container:hover img {
+        transform: scale(1.2);
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 20, 147, 0.5);
+        color: #fff;
+        opacity: 0;
+        transition: all 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .img-container:hover .overlay {
+        opacity: 1;
+    }
+
+    .overlay h5 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+    }
+
+    .overlay p {
+        font-size: 0.95rem;
+        color: #fce4ec;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtext {
+            font-size: 0.95rem;
+        }
+
+        .hero-logo {
+            width: 90px;
+        }
+    }
+</style>
+
+<!-- ✨ AOS (Scroll Animations) -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script>
+    AOS.init({ duration: 1200, once: true });
+</script>
+
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* 🌸 Manage Gallery Page Styling */
+  .manage-gallery {
+    min-height: 100vh;
+    padding: 60px 20px;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(67, 4, 41, 0.759));
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .manage-gallery h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #a91c5e;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .manage-gallery h2::after {
+    content: "";
+    width: 90px;
+    height: 4px;
+    background-color: #fbf9fa;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto 0;
+  }
+
+  /* Add Button */
+  .btn-add {
+    display: inline-block;
+    background: linear-gradient(90deg, #b2266c, #840649);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 100, 150, 0.3);
+  }
+
+  .btn-add:hover {
+    background: #ff4f6d;
+    transform: translateY(-3px);
+  }
+
+  /* Table Design */
+  .gallery-table {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: fadeUp 1s ease;
+  }
+
+  .gallery-table thead {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+  }
+
+  .gallery-table th,
+  .gallery-table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .gallery-table tbody tr:hover {
+    background-color: #f9f9f9;
+    transition: background 0.3s ease;
+  }
+
+  /* Image */
+  .gallery-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #eee;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Buttons */
+  .btn-sm {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+  }
+
+  .btn-primary {
+    background-color: #6c63ff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #574bdb;
+  }
+
+  .btn-danger {
+    background-color: #ff6b6b;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background-color: #ff5252;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<!-- 🌸 Manage Gallery Section -->
+<section class="manage-gallery">
+  <div class="container">
+    <h2>Manage Gallery</h2>
+
+    <div class="text-end mb-3">
+      <a href="{% url 'add_gallery' %}" class="btn-add shadow">+ Add New Image</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered gallery-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Active</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in gallery %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.description|truncatewords:12 }}</td>
+            <td>
+              {% if item.active %}
+              <span class="badge bg-success">Active</span>
+              {% else %}
+              <span class="badge bg-danger">Inactive</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if item.image %}
+              <img src="{{ item.image.url }}" alt="{{ item.category }}" class="gallery-img">
+              {% else %}
+              <span class="text-muted">No Image</span>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'edit_gallery' item.id %}" class="btn btn-primary btn-sm me-1">Edit</a>
+              <a href="{% url 'delete_gallery' item.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center text-muted">No gallery items found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

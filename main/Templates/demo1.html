@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- 🌸 Hero Section -->
+<section class="hero-section text-center text-white py-5"
+  style="background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(67, 4, 41, 0.8));"
+  data-aos="fade-down" data-aos-duration="1000">
+  <div class="container">
+    <img src="{% static 'images/l2.png' %}" alt="Pinky Beauty Parlour Logo" class="hero-logo mb-3" data-aos="zoom-in"
+      data-aos-delay="200">
+    <h2 class="hero-title" data-aos="fade-up" data-aos-delay="300">What Our Clients Say</h2>
+    <p class="hero-subtext" data-aos="fade-up" data-aos-delay="500">
+      Real experiences from our lovely customers at
+      <span class="pink-text">Pinky Beauty Parlour</span>
+    </p>
+  </div>
+</section>
+
+<!-- 💬 Testimonials Section -->
+<div class="container mt-5 mb-5" data-aos="fade-up">
+  <h2 class="text-center mb-4 section-title">Client Testimonials</h2>
+
+  <!-- Feedback Button -->
+  <div class="text-end mb-4" data-aos="zoom-in">
+    <button type="button" class="btn btn-pink" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+      Your Feedback +
+    </button>
+  </div>
+
+  <!-- Feedback Form Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'submit_feedback' %}">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLabel">Share Your Feedback</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Profile Image</label>
+              <input type="file" name="profile" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Feedback</label>
+              <textarea name="content" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Stars</label>
+              <select name="stars" class="form-select" required>
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                <option value="4">⭐⭐⭐⭐ (4)</option>
+                <option value="3">⭐⭐⭐ (3)</option>
+                <option value="2">⭐⭐ (2)</option>
+                <option value="1">⭐ (1)</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-pink">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approved Testimonials -->
+  <div class="row g-4 mt-4">
+    {% for t in testimonials %}
+    <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
+      <div class="testimonial-card shadow-sm p-4 text-center">
+        {% if t.profile %}
+        <img src="{{ t.profile.url }}" class="rounded-circle mb-3" width="70" height="70" alt="Client">
+        {% endif %}
+        <p class="testimonial-content">"{{ t.content }}"</p>
+        <p class="stars">⭐ {{ t.stars }}</p>
+        <h6 class="testimonial-name">- {{ t.name }}</h6>
+      </div>
+    </div>
+    {% empty %}
+    <div class="text-center text-muted">No testimonials yet. Be the first to share your feedback!</div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ✨ Custom Styles -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h1, h2, h3, .section-title, .hero-title {
+    font-family: 'Great Vibes', cursive;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background-attachment: fixed;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hero-logo {
+    width: 120px;
+    animation: floatLogo 3s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+    color: #e62583;
+  }
+
+  .hero-subtext {
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    color: #f8f8f8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .pink-text {
+    color: #ff85c0;
+    font-weight: bold;
+  }
+
+  /* Section Title */
+  .section-title {
+    color: #d7238c;
+    font-size: 2.3rem;
+    text-shadow: 0 0 8px rgba(255, 133, 192, 0.4);
+  }
+
+  /* Buttons */
+  .btn-pink {
+    background: linear-gradient(to right, #710743, #430429);
+    color: #fff;
+    letter-spacing: 1px;
+    font-weight: 500;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-pink:hover {
+    background: #d7238c;
+    transform: scale(1.05);
+  }
+
+  /* Testimonials */
+  .testimonial-card {
+    border-radius: 15px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(67, 4, 41, 0.759));
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(255, 133, 192, 0.3);
+  }
+
+  .testimonial-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #f2efef;
+  }
+
+  .testimonial-name {
+    color: #d21c86;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .stars {
+    color: #ff85c0;
+    font-size: 1.2rem;
+  }
+
+  /* Modal */
+  .modal-content {
+    border-radius: 12px;
+    border: 2px solid #d7238c;
+  }
+
+  .modal-title {
+    color: #d7238c;
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-logo {
+      width: 90px;
+    }
+
+    .testimonial-content {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<!-- AOS Animations -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script>
+  AOS.init({ duration: 1200, once: true });
+</script>
+
+{% endblock %}

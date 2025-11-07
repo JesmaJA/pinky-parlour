@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- 🌟 Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="fade-up">
+        <img src="{% static 'images/l2.png' %}" alt="Pinky Parlour Logo" class="hero-logo">
+        <h1 class="hero-title">Contact Us</h1>
+        <p class="hero-subtitle">Let’s Connect & Make Your Beauty Dreams Come True </p>
+    </div>
+</section>
+
+<!-- 📞 Contact Section -->
+<section class="contact-section">
+    <div class="contact-container">
+
+        <!-- Left: Contact Info -->
+        <div class="contact-info" data-aos="fade-right">
+            <h2 class="contact-title">Get in Touch</h2>
+            <p class="contact-subtitle">
+                Have questions about our services, gallery, or bookings?
+                Reach out anytime — we’re happy to help!
+            </p>
+
+            <div class="info-box">
+                <p><strong>📍 Address:</strong> 123 Beauty Street, Trivandrum, Kerala, India</p>
+                <p><strong>📞 Phone:</strong> +91 98765 43210</p>
+                <p><strong>📧 Email:</strong> info@pinkyparlour.com</p>
+                <p><strong>🕒 Hours:</strong> Mon – Sat: 9:00 AM – 8:00 PM</p>
+            </div>
+
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+
+        <!-- Right: Location Map -->
+        <div class="map-box" data-aos="fade-left">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.002038524073!2d76.93663707410765!3d8.52413959152062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bbf1fda0b3c7%3A0xbcb7d5aef1b7b97c!2sTechnopark%20Campus!5e0!3m2!1sen!2sin!4v1700300000000!5m2!1sen!2sin"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+    </div>
+</section>
+
+<!-- 🌸 Contact Page CSS -->
+<style>
+    /* 🎀 Hero Section */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(71, 4, 43, 0.893));
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-logo {
+        width: 120px;
+        margin-bottom: 20px;
+        animation: fadeInDown 1.5s ease;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        letter-spacing: 3px;
+        font-family: 'Great Vibes', cursive;
+        color: rgb(143, 16, 75);
+
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        font-family: 'Great Vibes', cursive;
+        letter-spacing: 3px;
+        font-size: 1.5rem;
+        line-height: 1.8;
+        color: #ccc7c7;
+    }
+
+    /* 💌 Contact Section */
+    .contact-section {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(38, 1, 22, 0.859));
+        padding: 80px 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .contact-container {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 20px;
+    }
+
+    /* 🌿 Left Info */
+    .contact-info {
+        flex: 1 1 45%;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(71, 4, 43, 0.759));
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        padding: 40px;
+    }
+
+    .contact-title {
+        font-size: 2rem;
+        color: #f8f5f4;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .contact-subtitle {
+        color: #555;
+        margin-bottom: 25px;
+    }
+
+    .info-box p {
+        margin: 8px 0;
+        color: #b0acac;
+    }
+
+    .social-links {
+        margin-top: 25px;
+    }
+
+    .social-links a {
+        display: inline-block;
+        margin-right: 10px;
+        background: #f8f6f6;
+        color: #0f0f0f;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 36px;
+        transition: 0.3s;
+    }
+
+    .social-links a:hover {
+        background: #ff5722;
+    }
+
+    /* 🌍 Right Map */
+    .map-box {
+        flex: 1 1 45%;
+        height: 400px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ✨ Responsive */
+    @media (max-width: 992px) {
+        .contact-container {
+            flex-direction: column;
+        }
+
+        .map-box {
+            height: 350px;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

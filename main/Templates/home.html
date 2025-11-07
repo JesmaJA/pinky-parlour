@@ -1,0 +1,850 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Internal CSS -->
+<style>
+  /* HERO SECTION */
+  .hero-section {
+    min-height: 70vh;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2)),
+    url("{% static 'images/hero-bg.jpg' %}") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+  }
+
+  /* FLEX CONTAINER */
+  .hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    gap: 40px;
+  }
+
+  /* LEFT CONTENT */
+  .hero-left {
+    flex: 1;
+  }
+
+  .tagline {
+    font-family: 'Great Vibes', cursive;
+    letter-spacing: 2.5px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #fbf8f9;
+    margin-bottom: 12px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .tagline:hover {
+    transform: translateX(8px);
+  }
+
+  .hero-title {
+    font-family: 'Great Vibes', cursive;
+    color: #dd207e !important;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  .hero-subtext {
+    font-size: 22px;
+    margin-bottom: 25px;
+    max-width: 550px;
+    font-family: 'Great Vibes', cursive;
+    color: #f6f1f4 !important;
+    letter-spacing: 2.5px;
+    transition: 0.3s;
+  }
+
+  /* CTA BUTTON */
+  .hero-btn {
+    background: #bb1e5d;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 34px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    display: inline-block;
+
+  }
+
+  .hero-btn:hover {
+    background: #ff4c5f;
+    transform: scale(1.08);
+    box-shadow: 0px 6px 18px rgba(255, 76, 95, 0.5);
+  }
+
+  /* RIGHT IMAGE */
+  .hero-right {
+    flex: 1;
+    text-align: center;
+  }
+
+  .hero-img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.6s ease, box-shadow 0.3s ease;
+  }
+
+  .hero-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  /* RESPONSIVE MEDIA QUERIES */
+  @media (max-width: 991px) {
+    .hero-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 42px;
+    }
+
+    .hero-subtext {
+      font-size: 15px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-img {
+      margin-top: 30px;
+      max-width: 70%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero-title {
+      font-size: 32px;
+    }
+
+    .hero-subtext {
+      font-size: 14px;
+    }
+
+    .hero-btn {
+      font-size: 14px;
+      padding: 10px 24px;
+    }
+
+    .hero-img {
+      max-width: 90%;
+    }
+  }
+
+
+    .about-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 60px 5%;
+      flex-wrap: wrap;
+      background: linear-gradient(135deg, #000 0%, #350418 100%);
+    }
+
+    /* Left Images */
+    .about-images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .about-images img {
+      width: 280px;
+      max-width: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+    }
+
+    .about-images img:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);
+    }
+
+    /* Right Content */
+    .about-content {
+      max-width: 830px;
+      background: rgba(255, 105, 180, 0.05);
+      padding: 30px;
+      border-left: 4px solid hotpink;
+      border-radius: 15px;
+    }
+
+    .about-content h4 {
+      font-family: 'Great Vibes', cursive;
+      color: hotpink;
+      font-size: 30px;
+      margin: 0 0 10px;
+    }
+
+    .about-content h2 {
+      font-size: 28px;
+      margin: 0 0 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .about-content p {
+      color: #ccc;
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 25px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      color: hotpink;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: #ddd;
+      font-size: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .about-content {
+        border-left: none;
+        border-top: 4px solid hotpink;
+      }
+      .about-images {
+        flex-direction: row;
+      }
+    }
+
+  .service-card {
+    cursor: pointer;
+    perspective: 1000px;
+  }
+
+  /* Tilt & bounce effect */
+  .service-card:hover {
+    transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 77, 166, 0.5), 0 10px 20px rgba(255, 77, 166, 0.3);
+  }
+
+  /* Image zoom on hover */
+  .service-card:hover .service-img {
+    transform: scale(1.12) rotate(1deg);
+  }
+
+  /* Neon overlay effect */
+  .neon-overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #ff4da6, 0 0 30px #ff4da6, 0 0 45px #ff4da6;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none;
+  }
+
+  .service-card:hover .neon-overlay {
+    opacity: 0.3;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .service-card {
+      margin: 0 auto;
+    }
+  }
+
+  .offer-card {
+    background: linear-gradient(145deg, #370523, #0d0d0d);
+    box-shadow: 0 8px 15px rgba(255, 77, 166, 0.2);
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    perspective: 1000px;
+    overflow: hidden;
+  }
+
+  /* 3D tilt and floating effect */
+  .offer-card:hover {
+    transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+    box-shadow: 0 25px 50px rgba(255, 77, 166, 0.5), 0 10px 20px rgba(255, 77, 166, 0.3);
+  }
+
+  /* Neon glow overlay */
+  .neon-overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #ff4da6, 0 0 30px #ff4da6, 0 0 45px #ff4da6;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+  }
+
+  .offer-card:hover .neon-overlay {
+    opacity: 0.25;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .offer-card {
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .gallery-card {
+    cursor: pointer;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    perspective: 1000px;
+  }
+
+  .gallery-card:hover {
+    transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 77, 166, 0.5), 0 5px 15px rgba(255, 77, 166, 0.3);
+  }
+
+  .gallery-img {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-card:hover .gallery-img {
+    transform: scale(1.1) rotate(1deg);
+  }
+
+  .neon-overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #ff4da6, 0 0 30px #ff4da6, 0 0 45px #ff4da6;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+  }
+
+  .gallery-card:hover .neon-overlay {
+    opacity: 0.25;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .gallery-img {
+      height: 150px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+    }
+  }
+
+  .cta-btn {
+    background: linear-gradient(45deg, #57042e, #060606);
+    color: #fff;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 5px 15px rgba(255, 77, 166, 0.3);
+    position: relative;
+  }
+
+  /* Glow on hover */
+  .cta-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff4da6, 0 0 40px #ff77c2, 0 0 60px #ff4da6;
+    background: linear-gradient(45deg, #ff77c2, #ff4da6);
+    color: #fff;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width:768px) {
+    .cta-title {
+      font-size: 2.2rem;
+    }
+
+    .cta-description {
+      font-size: 1rem;
+      padding: 0 15px;
+    }
+
+    .cta-btn {
+      font-size: 1.1rem;
+      padding: 0.8rem 2rem;
+    }
+  }
+
+  .faq-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .faq-card {
+    background: linear-gradient(145deg, #2f0317, #0d0d0d);
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(255, 77, 166, 0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .faq-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 77, 166, 0.5), 0 5px 10px rgba(255, 77, 166, 0.3);
+  }
+
+  .faq-question {
+    padding: 15px 20px;
+    font-size: 1.6rem;
+    color: #cdc8cbe5;
+    cursor: pointer;
+    position: relative;
+    font-family: Great Vibes, cursive;
+    letter-spacing: 2.5px;
+  }
+
+  .faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-card.active .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    color: #ddd;
+    font-size: 1rem;
+    transition: max-height 0.4s ease;
+  }
+
+  .faq-card.active .faq-answer {
+    max-height: 200px;
+    /* adjust if needed */
+    padding: 15px 20px;
+  }
+
+  /* Responsive */
+  @media (max-width:768px) {
+    .section-title {
+      font-size: 2.2rem;
+    }
+
+    .faq-question {
+      font-size: 1rem;
+    }
+
+    .faq-answer {
+      font-size: 0.95rem;
+    }
+  }
+  
+
+.why-choose-us {
+  padding: 70px 5%;
+  background: linear-gradient(135deg, #000 0%, #3d0824 100%);
+  text-align: center;
+}
+
+.section-title {
+  font-size: 36px;
+  margin-bottom: 10px;
+  font-family: 'great Vibes',cursive;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  color: #bfbbbd;
+}
+
+.section-title span {
+  color: hotpink;
+}
+
+.section-subtitle {
+  color: #ccc;
+  margin-bottom: 50px;
+  font-weight: 300;
+}
+
+.choose-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.choose-card {
+  background: rgba(107, 25, 66, 0.05);
+  border: 1px solid rgba(255, 105, 180, 0.2);
+  padding: 40px 25px;
+  border-radius: 15px;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.1);
+}
+
+.choose-card:hover {
+  background: rgba(255, 105, 180, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+}
+
+.choose-card .icon {
+  margin-bottom: 20px;
+}
+
+.choose-card .icon img {
+  width: 70px;           /* Adjust icon size */
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+.choose-card:hover .icon img {
+  transform: scale(1.1);
+}
+
+.choose-card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #af2277;
+}
+
+.choose-card p {
+  color: #ccc;
+  line-height: 1.6;
+  font-family: 'great Vibes',cursive;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+</style>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+
+    <!-- Left Content -->
+    <div class="hero-left" data-aos="fade-up" data-aos-duration="1000">
+      <h1 class="hero-title">Perfect Match For Your Skintone !</h1>
+      <p class="hero-subtext">
+        The masters of our studio are certified and have significant experience,
+        which ensures high-quality performance of our services.
+      </p>
+      <a href="{% url 'book_appointment' %}" class="btn hero-btn mt-3" data-aos="zoom-in" data-aos-delay="300">
+        BOOK NOW
+      </a>
+    </div>
+
+    <!-- Right Image -->
+    <div class="hero-right" data-aos="fade-down" data-aos-duration="1000">
+      <img src="{% static 'images/h2.jpg' %}" alt="Perfect Eyelashes" class="hero-img">
+    </div>
+
+  </div>
+</section>
+
+<section class="about-section">
+    <!-- Left Images -->
+    <div class="about-images" data-aos="fade-up">
+      <img src="{% static 'images/fa2.jpg' %}" alt="Hair Style 1">
+    </div>
+
+    <!-- Right Content -->
+    <div class="about-content" data-aos="fade-down">
+      <h4>About Us</h4>
+      <h2>WE UNDERSTAND YOUR STYLE</h2>
+      <p>
+        Our talented team specializes in customized haircuts, color, and styling services
+        to create unique looks for every client. Each of our stylists is committed to
+        expanding their skills in the world of beauty and fashion.Our talented team specializes in customized haircuts, color, and styling services
+        to create unique looks for every client. Each of our stylists is committed to
+        expanding their skills in the world of beauty and fashion.
+      </p>
+
+      <div class="about-stats">
+        <div class="stat-box">
+          <span class="stat-number">308</span>
+          <span class="stat-label">Branches</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">4570</span>
+          <span class="stat-label">Happy Customers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Services Section -->
+<section id="services" class="container py-5" style="background-color:#000;">
+  <h2 class="text-center mb-5"
+    style="color:#ff4da6;  letter-spacing:2px; font-family: Great Vibes,cursive;font-size: 3rem;">
+    Our Services
+  </h2>
+
+  {% if services %}
+  <div class="row g-4">
+    {% for service in services %}
+    <div class="col-md-6 col-lg-4">
+      <div class="service-card h-100 p-3 rounded-4 position-relative text-center" style="background: linear-gradient(145deg, #590631, #050505); 
+                  box-shadow: 0 8px 15px rgba(255,77,166,0.2);
+                  transition: all 0.4s ease-in-out;
+                  overflow:hidden;">
+        {% if service.image %}
+        <div class="service-img-wrapper rounded-4 overflow-hidden mb-3">
+          <img src="{{ service.image.url }}" alt="{{ service.name }}" class="img-fluid service-img"
+            style="height:320px;width: 350px; object-fit:cover; transition: transform 0.4s;border-radius: 10%;">
+        </div>
+        {% endif %}
+        <h5 class="card-title mb-2"
+          style="color:#ff4da6; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
+          {{ service.name }}
+        </h5>
+        <p class="card-text mb-2" style="color:#ccc; font-size:0.95rem;">{{ service.description }}</p>
+        <p class="fw-bold" style="color:#ff4da6; font-size:1.1rem;">Price: ₹{{ service.price }}</p>
+        <!-- Neon Glow Overlay -->
+        <span class="neon-overlay"></span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center" style="color:#fff;">No services available at the moment.</p>
+  {% endif %}
+</section>
+<!-- Call to Action Section -->
+<section class="cta-section text-center py-5" style="background-color:#000;">
+  <div class="container">
+    <!-- Heading -->
+    <h2 class="cta-title mb-3" style="font-family: 'Great Vibes', cursive; font-size:3rem; color:#ff4da6;letter-spacing: 3px; ">
+      Ready to Transform Your Experience?
+    </h2>
+
+    <!-- Description -->
+    <p class="cta-description mb-4"
+      style="color:#ddd; font-size:1.2rem; max-width:700px; margin:0 auto;font-family: 'Great Vibes', cursive; font-size: 1.3rem;letter-spacing: 2px;">
+      Book your appointment today and enjoy our exclusive services designed to bring you the best experience. Don’t miss
+      out on our special offers and personalized attention.
+    </p>
+
+    <!-- Button -->
+    <a href="{% url 'book_appointment' %}" class="btn cta-btn btn-lg rounded-pill px-5 py-3"
+      style="font-family: 'Great Vibes', cursive; font-size:1.5rem; color:#f7f2f5; ">
+      Book Your Appointment Now
+    </a>
+  </div>
+</section>
+<!-- Offers Section -->
+<section id="offers" class="container py-5" style="background-color:#000;">
+  <!-- Section Title -->
+  <h2 class="text-center mb-5 section-title"
+    style="font-family: 'Great Vibes', cursive; font-size:3rem; color:#cf3893;letter-spacing: 3px;">
+    What we offers for you ?
+  </h2>
+
+  {% if offers %}
+  <div class="row g-4">
+    {% for offer in offers %}
+    <div class="col-md-6 col-lg-4">
+      <div class="offer-card h-100 p-3 rounded-4 position-relative text-center">
+        <h5 class="card-title mb-2"
+          style="color:#ff4da6; font-family:'Great Vibes', cursive; font-size:1.8rem;letter-spacing: 2px;">
+          {{ offer.title }}
+        </h5>
+        <p class="card-text mb-2" style="color:#ddd;">{{ offer.description }}</p>
+        <p class="fw-bold"
+          style="color:#bfbbbd; letter-spacing: 2px;">Valid: {{
+          offer.start_date }} to {{ offer.end_date }}</p>
+        <span class="neon-overlay"></span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center" style="color:#fff;">No offers at the moment.</p>
+  {% endif %}
+</section>
+
+<!-- Gallery Section -->
+<section id="gallery" class="container py-5" style="background-color:#000;">
+  <!-- Section Title -->
+  <h2 class="text-center mb-5 section-title"
+    style="font-family: 'Great Vibes', cursive; font-size:3rem; color:#dc3b96;letter-spacing: 3px; ">
+    Gallery of our work!
+  </h2>
+
+  {% if gallery %}
+  <div class="row g-4">
+    {% for g in gallery %}
+    <div class="col-6 col-md-4 col-lg-3">
+      {% if g.image %}
+      <div class="gallery-card rounded-4 overflow-hidden position-relative">
+        <img src="{{ g.image.url }}" class="img-fluid gallery-img" alt="{{ g.category }}">
+        <span class="neon-overlay"></span>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center" style="color:#fff;">No gallery images yet.</p>
+  {% endif %}
+</section>
+
+
+<!-- FAQ Section -->
+<section id="faq" class="container py-5" style="background-color:#000;">
+  <h2 class="text-center mb-5 section-title"
+    style="font-family: 'Great Vibes', cursive; font-size:3rem; color:#ff4da6; letter-spacing: 3px;">
+    Frequently Asked Questions
+  </h2>
+
+  <div class="faq-container">
+    <div class="faq-card">
+      <div class="faq-question">What services do you offer?</div>
+      <div class="faq-answer">
+        We offer a variety of premium services including design, consulting, and personalized solutions tailored to your
+        needs.
+      </div>
+    </div>
+    <div class="faq-card">
+      <div class="faq-question">How can I book an appointment?</div>
+      <div class="faq-answer">
+        You can book your appointment directly through our website using the 'Book Your Appointment' button at the top
+        or bottom of the page.
+      </div>
+    </div>
+    <div class="faq-card">
+      <div class="faq-question">Do you have any special offers?</div>
+      <div class="faq-answer">
+        Yes! Check our Offers section for current discounts and promotions available for a limited time.
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Why Choose Us -->
+<section class="why-choose-us" id="why-choose-us">
+  <div class="container" data-aos="fade-up">
+    <h2 class="section-title">Why Choose <span>Us</span></h2>
+    <p class="section-subtitle">
+      We go beyond beauty to give you a luxurious and personalized experience.
+    </p>
+
+    <div class="choose-grid">
+      <!-- Card 1 -->
+      <div class="choose-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon">
+          <img src="{% static 'images/l2.png' %}" alt="Premium Quality">
+        </div>
+        <h3>Premium Quality</h3>
+        <p>
+          We use top-notch products and maintain high standards to ensure
+          perfect results every time.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="choose-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="icon">
+          <img src="{% static 'images/l2.png' %}" alt="Expert Stylists">
+        </div>
+        <h3>Expert Stylists</h3>
+        <p>
+          Our experienced team keeps up with the latest trends to create the
+          look you desire.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="choose-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="icon">
+          <img src="{% static 'images/l2.png' %}"alt="Personalized Care">
+        </div>
+        <h3>Personalized Care</h3>
+        <p>
+          We listen to your needs and tailor our services for a
+          comfortable and satisfying experience.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JS for scroll animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+<!-- JavaScript for Accordion -->
+<script>
+  const faqCards = document.querySelectorAll('.faq-card');
+
+  faqCards.forEach(card => {
+    card.querySelector('.faq-question').addEventListener('click', () => {
+      card.classList.toggle('active');
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="form-section">
+  <div class="form-wrapper">
+    <h2>{{ action }} {{ form_type }}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in fields %}
+      <div class="mb-3">
+        <label class="form-label">{{ field.label }}</label>
+
+        {% if field.type == "text" or field.type == "number" or field.type == "date" %}
+          <input type="{{ field.type }}" name="{{ field.name }}" class="form-control"
+                 value="{{ field.value|default_if_none:'' }}">
+        
+        {% elif field.type == "textarea" %}
+          <textarea name="{{ field.name }}" class="form-control">{{ field.value|default_if_none:'' }}</textarea>
+        
+        {% elif field.type == "checkbox" %}
+          <input type="checkbox" name="{{ field.name }}" class="form-check-input"
+                 {% if field.value %}checked{% endif %}>
+        
+        {% elif field.type == "file" %}
+          <input type="file" name="{{ field.name }}" class="form-control">
+          {% if field.value %}
+            <img src="{{ field.value.url }}" width="100" class="mt-2 rounded shadow-sm">
+          {% endif %}
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <button type="submit" class="btn btn-primary">{{ action }}</button>
+      <a href="{{ back_url }}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</section>
+
+<style>
+/* Section background to match your website’s design */
+.form-section {
+  background: linear-gradient(to right, #060606, #3e0227);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 15px;
+  font-family: 'Poppins', sans-serif;
+  color: #fefcfc;
+}
+
+/* Centered form box */
+.form-wrapper {
+  background: linear-gradient(to right, #460323, #0e0e0e);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  padding: 40px 35px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Form title */
+.form-wrapper h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #931150;
+  font-family: 'Great Vibes', cursive;
+}
+
+/* Inputs and buttons */
+.form-control,
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-control:focus,
+textarea:focus {
+  border-color: #ff7f50;
+  box-shadow: 0 0 5px rgba(255, 127, 80, 0.4);
+}
+
+.btn-primary {
+  background-color: #ff7f50;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #ff5722;
+}
+
+.btn-secondary {
+  background-color: #999;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  margin-left: 8px;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #777;
+}
+
+img.mt-2 {
+  margin-top: 8px;
+}
+</style>
+{% endblock %}

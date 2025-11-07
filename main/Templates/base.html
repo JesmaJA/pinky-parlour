@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinky Beauty Parlour</title>
+  {% load static %}
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- AOS Animation CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&display=swap"
+    rel="stylesheet">
+
+
+  <!-- Custom Styles -->
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(135deg, #000 0%, #350418 100%);
+      transition: all 0.4s ease-in-out;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(22, 21, 22, 0.85) !important;
+      transform: scale(1.03);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    }
+
+    .navbar-brand {
+      font-family: 'Great Vibes', cursive;
+      color: #dd207e !important;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      transition: 0.3s;
+    }
+
+    /* Navbar links styled like buttons */
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      margin: 5px 8px;
+      padding: 8px 16px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      letter-spacing: 1.5px;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background: #ff69b4;
+      color: #000 !important;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.5);
+    }
+
+    /* Make nav center on small screens */
+    @media (max-width: 991px) {
+      .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .navbar-nav .nav-item {
+        margin-bottom: 10px;
+      }
+
+      .navbar-toggler {
+        margin-left: auto;
+      }
+    }
+
+    /* Buttons */
+    .btn-pink,
+    .btn-outline-light {
+      border-radius: 0;
+      font-weight: bold;
+      transition: 0.3s;
+      padding: 10px 20px;
+    }
+
+    .btn-pink {
+      background: #ff69b4;
+      color: white;
+      border: none;
+    }
+
+    .btn-pink:hover {
+      background: #ff1493;
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.5);
+    }
+
+    .btn-outline-light {
+      border: 2px solid #fff;
+    }
+
+    .btn-outline-light:hover {
+      background: #ff69b4;
+      border-color: #ff69b4;
+      color: white !important;
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.5);
+    }
+
+    .footer {
+      color: #fff;
+      padding-top: 60px;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 40px;
+      padding: 0 5%;
+    }
+
+    .footer-logo {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .footer-logo span {
+      color: hotpink;
+    }
+
+    .footer-col h4 {
+      font-size: 18px;
+      color: hotpink;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .footer-col p,
+    .footer-col li,
+    .footer-col a {
+      color: #ccc;
+      line-height: 1.7;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a:hover {
+      color: hotpink;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      margin: 0 5px;
+      text-align: center;
+      border-radius: 50%;
+      background: rgba(255, 105, 180, 0.1);
+      color: hotpink;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: hotpink;
+      color: #000;
+    }
+
+    .contact-info i {
+      color: hotpink;
+      margin-right: 8px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 10px 12px;
+      border: none;
+      outline: none;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .newsletter-form button {
+      background: hotpink;
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 0 4px 4px 0;
+      transition: 0.3s;
+    }
+
+    .newsletter-form button:hover {
+      background: #ff69b4;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+      font-size: 14px;
+      background: linear-gradient(135deg, #000 0%, #350418 100%);
+
+    }
+
+
+    /* Admin Login button */
+    .admin-btn {
+      background-color: transparent;
+      border: 2px solid #ce0e6e;
+      color: #c60d6a;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .admin-btn:hover {
+      background-color: #ff69b4;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Book Now button */
+    .book-btn {
+      background-color: transparent;
+      border: 2px solid #ee0983;
+      color: #d91071;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .book-btn:hover {
+      background-color: #00bfff;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Extra small screens for better spacing */
+    @media (max-width: 575px) {
+      .navbar-brand {
+        font-size: 1.2rem;
+      }
+
+      .navbar-nav .nav-link {
+        font-size: 1.1rem;
+        padding: 6px 12px;
+      }
+
+      .btn-pink,
+      .btn-outline-light,
+      .admin-btn,
+      .book-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
+    <div class="container">
+      <!-- Logo + Title -->
+      <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+        <img src="{% static 'images/l2.png' %}" alt="Logo" width="45" height="55" class="me-2">
+        Pinky Beauty
+      </a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu -->
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+
+          <li class="nav-item"><a class="nav-link" href="{% url 'services_page' %}">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'gallery_page' %}">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'offers_page' %}">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+
+          <!-- <li class="nav-item">
+            <a class="btn admin-btn ms-2" href="{% url 'admin_login' %}">
+              <i class="fas fa-user-shield me-1"></i> Admin Login
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a class="btn book-btn ms-2" href="{% url 'book_appointment' %}">
+              <i class="fas fa-calendar-check me-1"></i> Book Now
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Messages -->
+  <div class="container mt-3" data-aos="fade-down">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- Main Content -->
+  <div class="container mt-6" data-aos="fade-up">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Professional Footer -->
+  <footer class="footer" data-aos="fade-up">
+    <div class="container footer-container">
+
+      <!-- Brand / Logo -->
+      <div class="footer-col brand">
+        <h3 class="footer-logo">Pinky <span>Beauty</span></h3>
+        <p>
+          Creating a luxurious beauty experience for every client with expert
+          stylists and premium services.
+        </p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#about">About Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Pink Street, Your City</li>
+          <li><i class="fas fa-phone-alt"></i> +91 98765 43210</li>
+          <li><i class="fas fa-envelope"></i> info@pinkybeauty.com</li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Stay updated with our latest offers and styles.</p>
+
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 Pinky Beauty Parlour. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- AOS Animation JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 20) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  </script>
+</body>
+
+</html>

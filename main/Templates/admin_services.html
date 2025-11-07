@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* 🌸 Manage Services Page Styling */
+  .manage-services {
+    min-height: 100vh;
+    padding: 60px 20px;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(67, 4, 41, 0.759));
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .manage-services h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #d31687;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .manage-services h2::after {
+    content: "";
+    width: 80px;
+    height: 4px;
+    background-color: #f9f6f5;
+    border-radius: 5px;
+    display: block;
+    margin: 8px auto 0;
+  }
+
+  .btn-add {
+    display: inline-block;
+    background-color: #760b49;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 600;
+  }
+
+  .btn-add:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+  }
+
+  /* Table Styling */
+  .service-table {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: fadeUp 1s ease;
+  }
+
+  .service-table thead {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+  }
+
+  .service-table th,
+  .service-table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .service-table tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background 0.3s ease;
+  }
+
+  .service-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #eee;
+    transition: transform 0.3s ease;
+  }
+
+  .service-img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Buttons */
+  .btn-sm {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+  }
+
+  .btn-primary {
+    background-color: #6c63ff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #574bdb;
+  }
+
+  .btn-danger {
+    background-color: #ff6b6b;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background-color: #ff5252;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<!-- 🌸 Manage Services Section -->
+<section class="manage-services">
+  <div class="container">
+    <h2>Manage Services</h2>
+
+    <div class="text-end mb-3">
+      <a href="{% url 'add_service' %}" class="btn-add shadow">+ Add New Service</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered service-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Available</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for service in services %}
+          <tr>
+            <td>{{ service.id }}</td>
+            <td>{{ service.name }}</td>
+            <td>
+              {% if service.image %}
+              <img src="{{ service.image.url }}" alt="{{ service.name }}" class="service-img">
+              {% else %}
+              <span class="text-muted">No Image</span>
+              {% endif %}
+            </td>
+            <td>{{ service.description|truncatewords:15 }}</td>
+            <td>${{ service.price }}</td>
+            <td>
+              {% if service.available %}
+              <span class="badge bg-success">Available</span>
+              {% else %}
+              <span class="badge bg-danger">Unavailable</span>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'edit_service' service.id %}" class="btn btn-primary btn-sm me-1">Edit</a>
+              <a href="{% url 'delete_service' service.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" class="text-center text-muted">No services found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

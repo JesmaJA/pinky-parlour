@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* 🌸 Manage Offers Page Styling */
+  .manage-offers {
+    min-height: 100vh;
+    padding: 60px 20px;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(67, 4, 41, 0.759));
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .manage-offers h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #d41980;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .manage-offers h2::after {
+    content: "";
+    width: 90px;
+    height: 4px;
+    background-color: #f8f4f5;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto 0;
+  }
+
+  /* Add Button */
+  .btn-add {
+    display: inline-block;
+        background: linear-gradient(to right, rgba(141, 23, 68, 0.85), rgba(67, 4, 41, 0.759));
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 100, 150, 0.3);
+  }
+
+  .btn-add:hover {
+    background: #ff4f6d;
+    transform: translateY(-3px);
+  }
+
+  /* Table */
+  .offer-table {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: fadeUp 1s ease;
+  }
+
+  .offer-table thead {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+  }
+
+  .offer-table th,
+  .offer-table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .offer-table tbody tr:hover {
+    background-color: #f9f9f9;
+    transition: background 0.3s ease;
+  }
+
+  /* Buttons */
+  .btn-sm {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+  }
+
+  .btn-primary {
+    background-color: #6c63ff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #574bdb;
+  }
+
+  .btn-danger {
+    background-color: #ff6b6b;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background-color: #ff5252;
+  }
+
+  /* Status Badge */
+  .badge {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 12px;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<!-- 🌸 Manage Offers Section -->
+<section class="manage-offers">
+  <div class="container">
+    <h2>Manage Offers</h2>
+
+    <div class="text-end mb-3">
+      <a href="{% url 'add_offer' %}" class="btn-add shadow">+ Add New Offer</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered offer-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for offer in offers %}
+          <tr>
+            <td>{{ offer.id }}</td>
+            <td>{{ offer.title }}</td>
+            <td>{{ offer.description|truncatewords:15 }}</td>
+            <td>{{ offer.start_date }}</td>
+            <td>{{ offer.end_date }}</td>
+            <td>
+              {% if offer.active %}
+              <span class="badge bg-success">Active</span>
+              {% else %}
+              <span class="badge bg-danger">Inactive</span>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'edit_offer' offer.id %}" class="btn btn-primary btn-sm me-1">Edit</a>
+              <a href="{% url 'delete_offer' offer.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" class="text-center text-muted">No offers available.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

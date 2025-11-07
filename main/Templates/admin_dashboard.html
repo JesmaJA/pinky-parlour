@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* 🌸 Admin Dashboard Styles */
+  .admin-dashboard {
+    animation: fadeIn 1s ease-in-out;
+    font-family: 'Poppins', sans-serif;
+    padding: 60px 20px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #090909 0%, #50042d 100%);
+  }
+
+  .dashboard-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #bb206d;
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .dashboard-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #f5f2f1;
+    margin: 10px auto 0;
+    border-radius: 5px;
+  }
+
+  /* Cards */
+  .dashboard-card {
+    background: linear-gradient(135deg, #470724 0%, #161616 100%);
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: none;
+    animation: zoomIn 0.8s ease;
+    color: #f5f2f1;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(145deg, #0b0b0b, #46102a);
+  }
+
+  .dashboard-card h5 {
+    font-size: 1.3rem;
+    color: #f7f2f2;
+    margin-bottom: 10px;
+  }
+
+  .dashboard-card .count {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #c3276d;
+    margin-bottom: 12px;
+  }
+
+  .dashboard-card .btn {
+    border-radius: 25px;
+    padding: 6px 18px;
+    transition: 0.3s;
+    color: #f5f2f1;
+        background: linear-gradient(135deg, #5b0b2f 0%, #161616 100%);
+
+  }
+
+  .dashboard-card .btn:hover {
+    background-color: #ff6b6b;
+    border: none;
+  }
+
+  /* Table */
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    animation: fadeInUp 1.2s ease;
+  }
+
+  .table thead {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+  }
+
+  .table tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background 0.3s ease;
+  }
+
+  .badge {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    text-transform: capitalize;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+</style>
+
+<!-- 🌸 Admin Dashboard -->
+<section class="admin-dashboard">
+  <div class="container">
+    <h2 class="dashboard-title">Admin Dashboard</h2>
+
+    <!-- Dashboard Cards -->
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-3">
+        <div class="dashboard-card">
+          <h5>Services</h5>
+          <p class="count">{{ services|length }}</p>
+          <a href="{% url 'services_page_admin' %}" class="btn btn-outline-dark btn-sm">Manage</a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="dashboard-card">
+          <h5>Offers</h5>
+          <p class="count">{{ offers|length }}</p>
+          <a href="{% url 'offers_page_admin' %}" class="btn btn-outline-dark btn-sm">Manage</a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="dashboard-card">
+          <h5>Gallery</h5>
+          <p class="count">{{ gallery|length }}</p>
+          <a href="{% url 'gallery_page_admin' %}" class="btn btn-outline-dark btn-sm">Manage</a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="dashboard-card">
+          <h5>Testimonials</h5>
+          <p class="count">{{ testimonials|length }}</p>
+          <a href="{% url 'testimonials_page_admin' %}" class="btn btn-outline-dark btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointments Table -->
+    <h3 class="mt-5 mb-3 text-center fw-bold">Appointments</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appt in appointments %}
+          <tr>
+            <td>{{ appt.id }}</td>
+            <td>{{ appt.name }}</td>
+            <td>{{ appt.email }}</td>
+            <td>{{ appt.phone }}</td>
+            <td>{{ appt.service.name }}</td>
+            <td>{{ appt.date }}</td>
+            <td>{{ appt.time }}</td>
+            <td>
+              <span
+                class="badge {% if appt.status == 'Approved' %}bg-success{% elif appt.status == 'Rejected' %}bg-danger{% else %}bg-secondary{% endif %}">
+                {{ appt.status }}
+              </span>
+            </td>
+            <td class="text-center">
+              <a href="{% url 'approve_appointment' appt.id %}" class="btn btn-success btn-sm me-1">Approve</a>
+              <a href="{% url 'reject_appointment' appt.id %}" class="btn btn-danger btn-sm">Reject</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="9" class="text-center text-muted">No appointments available</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

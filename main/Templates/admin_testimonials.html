@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* 🌸 Manage Testimonials Page Styling */
+  .manage-testimonials {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(67, 4, 41, 0.759));
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  /* Heading */
+  .manage-testimonials h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #a01c5e;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .manage-testimonials h2::after {
+    content: "";
+    width: 90px;
+    height: 4px;
+    background-color: #fdfcfd;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto 0;
+  }
+
+  /* Table Styling */
+  .testimonial-table {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: fadeUp 1s ease;
+  }
+
+  .testimonial-table thead {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+  }
+
+  .testimonial-table th,
+  .testimonial-table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  .testimonial-table tbody tr:hover {
+    background-color: #f9f9f9;
+    transition: background 0.3s ease;
+  }
+
+  /* Buttons */
+  .btn-sm {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+  }
+
+  .btn-success {
+    background-color: #4caf50;
+    border: none;
+  }
+
+  .btn-success:hover {
+    background-color: #43a047;
+  }
+
+  .btn-danger {
+    background-color: #ff6b6b;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background-color: #ff5252;
+  }
+
+  /* Stars */
+  .star-display {
+    color: #ffc107;
+    font-size: 1.1rem;
+  }
+
+  /* Status Badge */
+  .status-badge {
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .status-badge.approved {
+    background-color: #4caf50;
+  }
+
+  .status-badge.rejected {
+    background-color: #ff5252;
+  }
+
+  .status-badge.pending {
+    background-color: #ffb74d;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<!-- 🌸 Manage Testimonials Section -->
+<section class="manage-testimonials">
+  <div class="container">
+    <h2>Manage Testimonials</h2>
+
+    <div class="table-responsive">
+      <table class="table table-bordered testimonial-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Content</th>
+            <th>Stars</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in testimonials %}
+          <tr>
+            <td>{{ t.name }}</td>
+            <td>{{ t.content|truncatewords:20 }}</td>
+            <td class="star-display">
+              {% for i in "12345"|slice:":t.stars"|make_list %}
+              ⭐
+              {% endfor %}
+            </td>
+            <td>
+              <span
+                class="status-badge {% if t.status == 'Approved' %}approved{% elif t.status == 'Rejected' %}rejected{% else %}pending{% endif %}">
+                {{ t.status }}
+              </span>
+            </td>
+            <td>
+              {% if t.status != 'Approved' %}
+              <a href="{% url 'approve_testimonial' t.id %}" class="btn btn-success btn-sm me-1">Approve</a>
+              {% endif %}
+              {% if t.status != 'Rejected' %}
+              <a href="{% url 'reject_testimonial' t.id %}" class="btn btn-danger btn-sm">Reject</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center text-muted">No testimonials available.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

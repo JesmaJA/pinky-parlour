@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="appointment-section">
+  <div class="appointment-wrapper">
+    <h2 class="form-title">Book an Appointment</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" id="phone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="service">Select Service</label>
+        <select name="service" id="service" required>
+          {% for service in services %}
+          <option value="{{ service.id }}">{{ service.name }} - ${{ service.price }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="time">Time</label>
+        <input type="time" name="time" id="time" required>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary">Book Now</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+/* 🌸 Full Section Layout */
+.appointment-section {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to right, #080808, #020202);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 15px;
+  font-family: 'Poppins', sans-serif;
+  
+}
+
+/* 🌼 Wrapper Box */
+.appointment-wrapper {
+  background: linear-gradient(to right, #4a0323, #020202);
+  width: 100%;
+  max-width: 750px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  padding: 45px 50px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* 🌷 Title */
+.form-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 35px;
+  color: #fcf9f9;
+  font-weight: 600;
+}
+
+/* 🌿 Form Fields */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #fbf8f8;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: 0.3s ease;
+  background: #fafafa;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #ff7f50;
+  box-shadow: 0 0 6px rgba(255, 127, 80, 0.4);
+  outline: none;
+  background: #fff;
+}
+
+/* 🌸 Button Styling */
+.button-group {
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #090909, #640940);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #ff5722;
+}
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🌻 Responsive */
+@media (max-width: 768px) {
+  .appointment-wrapper {
+    padding: 30px 20px;
+  }
+  .form-title {
+    font-size: 1.6rem;
+  }
+}
+</style>
+{% endblock %}

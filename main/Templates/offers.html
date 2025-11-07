@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- 🌸 Hero Section -->
+<section class="hero-section text-center text-white py-5"
+    style="background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(67, 4, 41, 0.8));" data-aos="fade-down"
+    data-aos-duration="1000">
+
+    <div class="container">
+        <img src="{% static 'images/l2.png' %}" alt="Pinky Beauty Parlour Logo" class="hero-logo mb-3"
+            data-aos="zoom-in" data-aos-delay="200">
+        <h2 class="hero-title" data-aos="fade-up" data-aos-delay="300">Exciting Offers Just for You</h2>
+        <p class="hero-subtext" data-aos="fade-up" data-aos-delay="500">
+            Indulge in beauty and elegance with <span class="pink-text">exclusive discounts</span>
+            and limited-time offers at <b>Pinky Beauty Parlour</b>.
+        </p>
+    </div>
+</section>
+
+<!-- 💅 Offers Section -->
+<section class="offers-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-4" data-aos="fade-up" style="letter-spacing: 3px;
+        font-size: 2.3rem;
+        line-height: 1.6;
+        color: #f1ecee;">Current Offers</h2>
+        <div class="row g-4">
+            {% for offer in offers %}
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|add:1 }}00">
+                <div class="offer-card shadow-sm p-4 text-center">
+                    <h5 class="offer-title">{{ offer.title }}</h5>
+                    <p class="offer-desc">{{ offer.description|truncatewords:25 }}</p>
+                    <p class="offer-date">
+                        {{ offer.start_date }} <span class="pink-text">to</span> {{ offer.end_date }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 💖 Featured Offer Section -->
+<section class="featured-offer py-5 text-white text-center"
+    style="background: linear-gradient(135deg, #330022, #000000);letter-spacing: 3px;
+        font-size: 1.4rem;
+        line-height: 1.6;" data-aos="fade-up">
+    <div class="container">
+        <h2 class="mb-3 pink-text" style="letter-spacing: 3px;
+        font-size: 2.1rem;
+        line-height: 1.6;"> Featured Offer </h2>
+        <p class="lead">Get up to <span class="pink-text">30% off</span> on bridal makeup packages this month only!</p>
+        <button class="btn-offer mt-3">Book Now</button>
+    </div>
+</section>
+
+
+<!-- 🌈 Styles -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    body {
+        font-family: 'Great Vibes', cursive;
+        background: #0e0e0e;
+    }
+
+    /* Hero */
+    .hero-section {
+        background-attachment: fixed;
+        color: #fff;
+    }
+
+    .hero-logo {
+        width: 120px;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+        color: #d31b74;
+    }
+
+    .hero-subtext {
+        letter-spacing: 3px;
+        font-size: 1.4rem;
+        line-height: 1.7;
+        color: #f8f8f8;
+    }
+
+    .pink-text {
+        color: #c81e70;
+         letter-spacing: 3px;
+        font-size: 1.4rem;
+        line-height: 1.6;
+    }
+
+    /* Offers Section */
+    .offers-section {
+        background: linear-gradient(180deg, #0b0b0b, #070707);
+    }
+
+    .offer-card {
+        background: linear-gradient(135deg, #000000, #330022);
+        border-radius: 15px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .offer-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+    }
+
+    .offer-title {
+        color: #c91f82;
+        font-size: 1.8rem;
+    }
+
+    .offer-desc {
+        color: #fbf6f6;
+        letter-spacing: 3px;
+        font-size: 1.4rem;
+        line-height: 1.6;
+    }
+
+    /* Featured Offer */
+    .featured-offer {
+        background-attachment: fixed;
+    }
+
+    .btn-offer {
+        background-color: #95054b;
+        color: #fff;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-offer:hover {
+        background-color: #fff;
+        color: #430429;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        background: linear-gradient(135deg, #ff85c0, #430429);
+        color: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        transition: transform 0.4s ease;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-10px);
+    }
+
+    /* Beauty Tips */
+    .tips-section .tip-card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid #ff85c0;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .tips-section .tip-card:hover {
+        background: rgba(255, 133, 192, 0.2);
+        transform: translateY(-8px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-logo {
+            width: 90px;
+        }
+
+        .btn-offer {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<!-- AOS Animations -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script>
+    AOS.init({ duration: 1200, once: true });
+</script>
+
+{% endblock %}
